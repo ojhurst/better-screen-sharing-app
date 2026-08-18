@@ -285,7 +285,7 @@ offers an update at launch when it is behind, and via File → **Check for Updat
 
 ## Reporting bugs and requesting features
 
-**https://github.com/ojhurst/bss/issues**
+**https://github.com/ojhurst/better-screen-sharing-app/issues**
 
 That repository is documentation, issue tracking, and releases only — it contains
 no source. If you hit a defect while driving this app, file it there rather than

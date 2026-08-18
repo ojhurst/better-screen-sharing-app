@@ -3,6 +3,13 @@
 Build numbers are a single incrementing integer, shown in the window title bar
 and reported by `bss update --check`.
 
+## Build 54
+
+- This repository moved from `ojhurst/bss` to `ojhurst/better-screen-sharing-app`.
+  The old address still redirects. Build 54 points here directly.
+- The updater now follows redirects when it asks GitHub for the latest release,
+  so an installed copy keeps updating even if this repository is renamed again.
+
 ## Build 53
 
 - Fixed an update check that could never fire on a bundle installed before

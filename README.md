@@ -9,7 +9,7 @@ Point it at a target and it shows up.
 
 > **This repository contains documentation, issue tracking, and releases only.**
 > The application source is not published here. Downloads are on the
-> [Releases](https://github.com/ojhurst/bss/releases) page.
+> [Releases](https://github.com/ojhurst/better-screen-sharing-app/releases) page.
 
 ---
 
@@ -28,7 +28,7 @@ JSON file, so switching machines is a one-line change — or one command.
 ## Install
 
 1. Download the latest `Better-Screen-Sharing-<build>-arm64.zip` from
-   [Releases](https://github.com/ojhurst/bss/releases).
+   [Releases](https://github.com/ojhurst/better-screen-sharing-app/releases).
 2. Unzip and drag **Better Screen Sharing.app** to `/Applications`.
 3. First launch: **right-click the app → Open**, then confirm.
 
@@ -143,7 +143,7 @@ Log file: `~/Library/Logs/better-screen-sharing.log`.
 
 ## Bugs and feature requests
 
-[Open an issue](https://github.com/ojhurst/bss/issues/new/choose). Please include
+[Open an issue](https://github.com/ojhurst/better-screen-sharing-app/issues/new/choose). Please include
 the build number (`bss update --check`), your macOS version, the connection type,
 and a `bss logs 60` excerpt — **scrubbed of hostnames, IPs, usernames, and any
 credential paths.**
