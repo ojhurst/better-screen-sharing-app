@@ -75,7 +75,7 @@ file *is* the control interface — change `active` and the live view follows.
 
 ```json
 {
-  "active": "vps-chrome",
+  "active": "headless-browser",
   "wsPort": 6080,
   "targets": {
     "studio": {
@@ -84,10 +84,10 @@ file *is* the control interface — change `active` and the live view follows.
       "host": "studio.local",
       "port": 5900
     },
-    "vps-chrome": {
-      "label": "VPS Chrome (Xvfb :99)",
+    "headless-browser": {
+      "label": "Headless browser (Xvfb :99)",
       "type": "ssh",
-      "ssh": "vps",
+      "ssh": "my-server",
       "remotePort": 5900,
       "localPort": 5901,
       "display": 99,
