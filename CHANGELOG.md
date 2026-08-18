@@ -3,6 +3,16 @@
 Build numbers are a single incrementing integer, shown in the window title bar
 and reported by `bss update --check`.
 
+## Build 53
+
+- Fixed an update check that could never fire on a bundle installed before
+  Build 52. Those bundles report a marketing version (`1.0.0`) where the build
+  number now lives; reading it as digits produced "100", so every real release
+  looked older and the updater stayed shut. A version that is not a plain
+  integer is now ignored, and an installed build that cannot be identified
+  counts as out of date rather than current — so an old install repairs itself
+  on the next check instead of silently never updating again.
+
 ## Build 52
 
 - First public release. The app is now distributed as a signed download rather
