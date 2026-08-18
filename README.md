@@ -150,6 +150,8 @@ credential paths.**
 
 ## License
 
-The documentation in this repository is MIT licensed — see [LICENSE](LICENSE).
-The application binary is distributed free of charge, as-is and without warranty;
-its source is not published.
+Copyright © 2026 Oliver Hurst. All rights reserved. See [LICENSE](LICENSE).
+
+The application source is not published, and builds may not be redistributed.
+Bundled third-party components — Electron, noVNC, and others — remain under
+their own licenses, included inside the app bundle.
