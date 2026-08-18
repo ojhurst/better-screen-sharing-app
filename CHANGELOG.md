@@ -3,6 +3,25 @@
 Build numbers are a single incrementing integer, shown in the window title bar
 and reported by `bss update --check`.
 
+## Build 52
+
+- First public release. The app is now distributed as a signed download rather
+  than something you build from source.
+- `bss update` downloads and installs the newest published build directly,
+  verifying its signature before it replaces anything. No source checkout, no
+  build toolchain, and no git required — which is what made updates impossible
+  on any machine that only had the app.
+- The updater now installs to a staging path and swaps it into place, so a
+  failed update can no longer leave a machine with no app at all.
+- `AGENTS.md` ships inside the bundle at `Contents/Resources/AGENTS.md`, so an
+  AI agent can learn to drive the app with no network and no source.
+- **New setting: `passwordCommand`.** `passwordSecret` is now resolved by a
+  helper you name in the config rather than a hardcoded path, so you can point
+  it at your own password manager or parameter store. Defaults to
+  `bss-resolve-secret` on `PATH`.
+- The app icon is applied correctly. Every previous build silently shipped
+  Electron's default icon.
+
 ## Build 51
 
 - The Connections panel collapser is now the primary, always-visible control for

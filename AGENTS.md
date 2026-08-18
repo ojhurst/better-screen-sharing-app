@@ -36,7 +36,7 @@ the bundle is read-only and editing it does nothing.
 
 ```json
 {
-  "active": "vps-chrome",
+  "active": "headless-browser",
   "wsPort": 6080,
   "targets": {
     "<key>": { "...connection..." }
@@ -78,10 +78,10 @@ when omitted (`ssh` if an `ssh` key is present, else `direct`).
 ### `ssh` — tunnel to a remote display, optionally starting the VNC server first
 
 ```json
-"vps-chrome": {
-  "label": "VPS Chrome (Xvfb :99)",
+"headless-browser": {
+  "label": "Headless browser (Xvfb :99)",
   "type": "ssh",
-  "ssh": "vps",
+  "ssh": "my-server",
   "remotePort": 5900,
   "localPort": 5901,
   "display": 99,
@@ -146,14 +146,14 @@ Human asks to see what your automation is doing on a remote machine:
 
 ```bash
 bss list                  # find the key for that machine
-bss view vps-chrome       # point the window there and raise it
+bss view headless-browser       # point the window there and raise it
 bss logs 20               # confirm it connected
 ```
 
 A healthy connect logs a line like:
 
 ```
-rfb connect vps-chrome fb=1366x900
+rfb connect headless-browser fb=1366x900
 ```
 
 `fb=WxH` is the remote framebuffer. If you see it, the human is looking at the
@@ -163,8 +163,8 @@ window updated.
 If the target does not exist yet:
 
 ```bash
-bss add "VPS Chrome" vps ssh 5900     # creates an ssh target with a free localPort
-bss view vps-chrome
+bss add "Headless Browser" my-server ssh 5900     # creates an ssh target with a free localPort
+bss view headless-browser
 ```
 
 Then set `ensureX11vnc: true` and `display` in the JSON if it is a headless
@@ -234,12 +234,37 @@ Two options on a connection:
 
 - `password` — plaintext in the config file. Fine for a throwaway LAN box, bad
   for anything else. Never commit it anywhere.
-- `passwordSecret` — a string path resolved at connect time by shelling out to a
-  helper binary at `~/apps/cc/bin/aws-secret`, which is expected to print the
-  secret on stdout. If that binary does not exist on this machine, the lookup
-  fails quietly and the password is empty. This hook exists so real credentials
-  can stay out of the config file; supply your own resolver at that path if you
-  want it.
+- `passwordSecret` — an opaque string resolved at connect time by an external
+  helper, so the real credential never sits in the config file. The helper is
+  whatever the **top-level `passwordCommand`** setting names, invoked as:
+
+  ```
+  <passwordCommand> <passwordSecret>
+  ```
+
+  Whatever it prints on stdout becomes the password. `passwordCommand` defaults
+  to `bss-resolve-secret` on your `PATH`. Point it at your own secrets tool —
+  a password manager CLI, a cloud parameter-store lookup, anything that prints
+  a secret for a given key:
+
+  ```json
+  {
+    "wsPort": 6080,
+    "passwordCommand": "/usr/local/bin/my-secret-lookup",
+    "targets": {
+      "some-box": {
+        "label": "Some box",
+        "type": "direct",
+        "host": "some-mac.local",
+        "username": "admin",
+        "passwordSecret": "vnc/some-box"
+      }
+    }
+  }
+  ```
+
+  If the helper is missing or errors, the lookup fails and the password is
+  empty — check the log for `password secret error`.
 
 **As an agent: do not write a human's password into this file on your own
 initiative.** Ask first, or use `passwordSecret`.
