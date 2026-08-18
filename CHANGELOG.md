@@ -3,6 +3,22 @@
 Build numbers are a single incrementing integer, shown in the window title bar
 and reported by `bss update --check`.
 
+## Build 56
+
+- **Notarized by Apple**, with the ticket stapled into the bundle. First launch
+  is now clean: no right-click workaround, and no network connection needed for
+  Gatekeeper to clear the app.
+- Fixed code signing for two executables hidden inside Electron's frameworks,
+  `chrome_crashpad_handler` and `ShipIt`. Signing a framework does not sign bare
+  binaries nested within it, so both had been shipping unsigned, with no
+  hardened runtime and no secure timestamp. Apple rejected the first submission
+  on exactly these.
+
+## Build 55
+
+- Better Screen Sharing is a paid product. Downloads are no longer served from
+  this repository; it is documentation and issue tracking now.
+
 ## Build 54
 
 - This repository moved from `ojhurst/bss` to `ojhurst/better-screen-sharing-app`.

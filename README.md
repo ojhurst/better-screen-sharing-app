@@ -7,9 +7,10 @@ boxes running a browser under Xvfb.
 Embedded noVNC live view, plus a self-managed SSH tunnel that re-dials itself.
 Point it at a target and it shows up.
 
-> **This repository contains documentation, issue tracking, and releases only.**
-> The application source is not published here. Downloads are on the
-> [Releases](https://github.com/ojhurst/better-screen-sharing-app/releases) page.
+> **This repository contains documentation and issue tracking.**
+> The application source is not published here, and neither are downloads —
+> Better Screen Sharing is a paid product. This is where you read the manual and
+> file bugs.
 
 ---
 
@@ -27,19 +28,14 @@ JSON file, so switching machines is a one-line change — or one command.
 
 ## Install
 
-1. Download the latest `Better-Screen-Sharing-<build>-arm64.zip` from
-   [Releases](https://github.com/ojhurst/better-screen-sharing-app/releases).
+1. Download `Better-Screen-Sharing-<build>-arm64.zip`.
 2. Unzip and drag **Better Screen Sharing.app** to `/Applications`.
-3. First launch: **right-click the app → Open**, then confirm.
+3. Open it.
 
-Step 3 is required once. The app is signed with a Developer ID certificate but
-is not yet notarized, so Gatekeeper asks for explicit consent on first launch.
-Right-click → Open is the supported path; after that it opens normally. If you
-would rather clear the quarantine flag directly:
-
-```bash
-xattr -dr com.apple.quarantine "/Applications/Better Screen Sharing.app"
-```
+That is the whole install. The app is signed with a Developer ID certificate,
+notarized by Apple, and the ticket is stapled into the bundle — so first launch
+is clean, with no right-click workaround and no network connection required for
+Gatekeeper to clear it.
 
 Apple Silicon only (arm64).
 
