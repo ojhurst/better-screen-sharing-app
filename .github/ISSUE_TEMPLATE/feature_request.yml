@@ -1,0 +1,60 @@
+name: Feature request
+description: Suggest something Better Screen Sharing should do
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The guiding idea behind this app: **the config is the API.** Anything a
+        person can do, a script or an AI agent should be able to do by editing
+        one JSON file or running one command. Requests that fit that shape tend
+        to land fastest.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the situation, not the solution. What does the tool make hard today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like it to do?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Which surface does this touch?
+      options:
+        - targets.json schema
+        - bss CLI
+        - App window / viewer
+        - SSH tunnel or connection handling
+        - Updates and distribution
+        - Agent operating notes (AGENTS.md)
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who is the user here?
+      options:
+        - A person clicking around
+        - A script or automation
+        - An AI agent driving the app
+        - All of the above
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Current workaround (optional)
+      description: How are you getting by today?

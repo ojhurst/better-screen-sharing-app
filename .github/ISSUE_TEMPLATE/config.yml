@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Setup, schema, and troubleshooting
+    url: https://github.com/ojhurst/bss/blob/main/AGENTS.md
+    about: Full targets.json schema, the complete CLI surface, and fixes for the common failures. Check here before filing.
+  - name: Downloads
+    url: https://github.com/ojhurst/bss/releases
+    about: Latest signed build for Apple Silicon.

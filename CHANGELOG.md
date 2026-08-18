@@ -1,0 +1,103 @@
+# Changelog
+
+Build numbers are a single incrementing integer, shown in the window title bar
+and reported by `bss update --check`.
+
+## Build 51
+
+- The Connections panel collapser is now the primary, always-visible control for
+  reclaiming screen space. The top bar never hides, so the toggle is always
+  reachable, and collapsing re-letterboxes the remote to fill the new width.
+
+## Build 50
+
+- An unreadable build number can no longer masquerade as "up to date." The
+  updater fails loudly instead of silently skipping an available update.
+
+## Build 49
+
+- Immersive full-screen mode: a thin frame in the letterbox gutter marks the
+  screen edge, and a slide-down bar at the top edge carries the live indicator
+  and an exit button. Enter and exit via ⌃⌘F, the View menu, or the green
+  traffic light — all three land in the same mode.
+
+## Build 47
+
+- Draw a cursor over the remote canvas even when the remote hides its own. A
+  headless display with no cursor made the view feel dead.
+
+## Build 46
+
+- Support a target on the same machine under a different user account, for
+  viewing a second local desktop session.
+
+## Builds 44–45
+
+- Headless Linux targets can now be given a real desktop: `ensureDesktop` starts
+  a window manager, a taskbar, and a wallpaper on the remote display, and every
+  window is sized to 95% of the work area so its edges stay grabbable through
+  the viewer.
+
+## Build 43
+
+- `bss view <key>` now launches the app if it is not running and raises the
+  window to the front. Re-pointing a window that stays buried behind others
+  helps nobody. `--no-focus` opts out for scripted re-pointing.
+
+## Build 42
+
+- Keep watching for content on a blank remote until it actually arrives, rather
+  than giving up on a fixed timer.
+
+## Builds 39–40
+
+- Clipboard paste into the remote, including typing the local clipboard into a
+  focused remote field.
+
+## Builds 37–38
+
+- Resilient reconnect: exponential backoff with a circuit breaker, and a
+  wait-for-bind tunnel that survives high-latency links.
+- Per-connection refresh button, keyboard-focus hardening, and a one-click
+  copy-error button.
+
+## Build 35
+
+- Self-update: **File → Check for Updates**, a silent check at launch, and the
+  `bss update` CLI.
+
+## Build 34
+
+- Mac targets connect only on an explicit click, so launching the app no longer
+  triggers a Screen Sharing prompt. Fixed fit mode clipping the top and bottom.
+
+## Builds 19–22
+
+- Remote mouse and keyboard control, with an input probe.
+- Zoom in/out/fit with keyboard shortcuts and ⌘-scroll.
+- Display menu: mirror or extend the remote Mac's monitors over SSH. Mirroring
+  collapses multiple displays into one, which is far easier to drive remotely.
+
+## Builds 13–18
+
+- Warm session pool — switching connections is instant, like browser tabs. Only
+  the visible connection auto-redials; a dropped background one revives when you
+  switch to it.
+- Renderer-side VNC event logging: connect, disconnect, auth, security failure.
+- Fixed the Display controls in the packaged app by unpacking `bin/` from the
+  asar archive.
+
+## Builds 7–12
+
+- Packaged as a standalone `.app`, with the config relocated to a shared,
+  user-writable path so the read-only bundle and the CLI agree on one file.
+- Connections CRUD panel and File menu, `direct` and `ssh` connection types, and
+  live config reload.
+- File logging with instrumentation, automatic freeing of an orphaned local
+  port, and the build number in the native title bar.
+
+## Builds 1–2
+
+- Config-driven noVNC viewer with a self-managed SSH tunnel.
+- The CLI clears `ELECTRON_RUN_AS_NODE`, so launching from an Electron-hosted
+  shell opens a real window instead of a headless Node process.

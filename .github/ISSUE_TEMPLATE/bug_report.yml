@@ -1,0 +1,84 @@
+name: Bug report
+description: Something in Better Screen Sharing does not work
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing. **Scrub before you post** — log lines and config
+        snippets carry hostnames, SSH aliases, LAN IPs, usernames, and secret
+        paths. Replace them with placeholders. This tracker is public.
+
+  - type: input
+    id: build
+    attributes:
+      label: Build number
+      description: "`bss update --check`, or the number in the window title bar."
+      placeholder: "51"
+    validations:
+      required: true
+
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and chip
+      description: "`sw_vers -productVersion` and `uname -m`"
+      placeholder: "15.3 / arm64"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: conntype
+    attributes:
+      label: Connection type
+      options:
+        - direct (straight VNC to a host)
+        - ssh (tunnel to a remote display)
+        - both / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: remote
+    attributes:
+      label: What is on the other end?
+      options:
+        - macOS (built-in Screen Sharing)
+        - Linux with a real display
+        - Linux headless (Xvfb + x11vnc)
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log excerpt
+      description: "`bss logs 60` — scrubbed. This is usually the fastest path to a fix."
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant target config (optional)
+      description: "The offending entry from targets.json — scrubbed of hosts, aliases, and credentials."
+      render: json
+
+  - type: checkboxes
+    id: scrubbed
+    attributes:
+      label: Confirmation
+      options:
+        - label: I removed hostnames, IPs, usernames, and credential paths from everything above.
+          required: true
