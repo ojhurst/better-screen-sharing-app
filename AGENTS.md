@@ -110,6 +110,62 @@ when omitted (`ssh` if an `ssh` key is present, else `direct`).
 
 ---
 
+### Same-Mac, different-user virtual sessions
+
+You can view and control **another macOS account on the machine you are already
+sitting at**, while your own session keeps the physical console. macOS gives a
+non-console user its own virtual desktop — separate cursor, keyboard, and browser
+profile — so an agent can drive a browser with this machine's network identity
+without stealing your mouse.
+
+```json
+"agent-session": {
+  "label": "Agent (virtual session)",
+  "type": "direct",
+  "host": "localhost",
+  "port": 5900,
+  "username": "agentuser",
+  "password": "...",
+  "nativeViewer": false,
+  "mode": "local-user-session"
+}
+```
+
+`mode: "local-user-session"` is optional but recommended. It declares intent, and
+the app then checks the two preconditions below **at connect time** and tells you
+immediately if they are not met — instead of connecting successfully and showing
+you a black rectangle. Leaving it off changes nothing else.
+
+Two details do the work:
+
+- **`host: "localhost"`.** No relay, no LAN address, no tunnel. Connect straight
+  to the local Screen Sharing port.
+- **`nativeViewer: false`.** This is the important one. Apple's Screen Sharing
+  client refuses same-host connections with *"You cannot control your own
+  screen"* — that check lives in **Apple's client, not in this app**. Setting
+  `nativeViewer: false` keeps you on the embedded viewer, which has no such
+  check. Routing through an external relay to defeat the message is unnecessary
+  and changes what macOS decides to serve you.
+
+**Prerequisites, both required:**
+
+1. **The target account must already be logged in** via Fast User Switching.
+   Screen Sharing will answer for a user with no session, but there is no
+   desktop behind it.
+2. **The target account must NOT be the one holding the physical console.**
+   macOS will not build a virtual desktop for a user who already has the real
+   one, and will not mirror the console over this connection either.
+
+Check both:
+
+```bash
+stat -f "%Su" /dev/console   # who holds the console
+who                          # which accounts have live sessions
+```
+
+If the app connects and stays black, it now names which of these it is — see
+Troubleshooting.
+
 ## CLI — `bss`
 
 Thin, safe wrappers over the same file. Prefer these over hand-editing JSON; they
@@ -188,6 +244,21 @@ tunnel kills, tunnel stderr and exit codes, errors.
 ---
 
 ## Troubleshooting
+
+**Connected, authenticated, and the screen stays black**
+For a local target with a `username`, the app asks macOS directly and tells you
+which case it is instead of guessing:
+
+- *"<user> is signed in at the physical console right now"* — that account holds
+  the real desktop, so there is no virtual one to send. Switch it out at the
+  login window, or target a different user.
+- *"<user> is not logged in on this Mac"* — log in once via Fast User Switching,
+  then reconnect.
+- *"session looks right"* — the account is logged in and is not the console
+  user, so this really is a sleeping display or an encoding problem.
+
+Older builds reported every one of these as *"not sending video, or an encoding
+mismatch"*, which pointed at the wrong problem. If you see that wording, update.
 
 **`tunnel ssh exited (code 255) before establishing`**
 A stale tunnel is holding the `localPort`. The app clears these automatically
