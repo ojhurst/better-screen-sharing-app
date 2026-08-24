@@ -344,6 +344,21 @@ initiative.** Ask first, or use `passwordSecret`.
 
 ## Updating
 
+**Set your download token once and updates install in place.** Without it the app
+can tell you a new build exists but has no way to prove you are entitled to the
+file, so it opens the download page in a browser. With it, Check for Updates
+downloads, verifies the signature, swaps the app, and relaunches — no browser.
+
+```bash
+bss token <token>        # from your product page; stored 0600, never echoed
+bss token --status       # is a token set?
+bss token --clear        # revert to the browser handoff
+```
+
+The token is per member, per product, and valid for 90 days. If it expires the
+app says so and falls back to the browser rather than failing silently.
+
+
 ```bash
 bss update --check      # installed=<n> latest=<n> behind=<0|1>
 bss update              # download and install the newest published build, relaunch
